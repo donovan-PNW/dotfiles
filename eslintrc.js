@@ -24,5 +24,6 @@ module.exports = {
       "comma-dangle": "warn",
       "arrow-parens": "warn",
       "quotes": "warn",
+      "spaced-comment": "warn",
     }
 };

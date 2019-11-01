@@ -30,7 +30,9 @@ set viminfo='1000,f1
 set splitbelow
 set splitright
 set conceallevel=0
-set t_ut=
+set backspace=indent,eol,start
+"fzf told me to include this one
+set rtp+=/usr/local/opt/fzf
 
 augroup AutoSaveFolds
   autocmd!
@@ -40,8 +42,9 @@ augroup END
 nnoremap <buffer> <F9> :exec '!python3' shellescape(@%, 1)<cr>
 
 
-
-
+if has('nvim') || has('termguicolors')
+  set termguicolors
+endif
 
 
 
@@ -65,7 +68,9 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'easymotion/vim-easymotion'
 Plug 'yggdroot/indentline'
-Plug 'junegunn/fzf'
+"Plug 'junegunn/fzf'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'ajh17/VimCompletesMe'
 Plug 'mbbill/undotree'
 Plug 'terryma/vim-multiple-cursors'
@@ -83,6 +88,11 @@ Plug 'sheerun/vim-polyglot'
 Plug 'simnalamburt/vim-mundo'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'jaredgorski/spacecamp'
+Plug 'whatyouhide/vim-gotham'
+Plug 'rafalbromirski/vim-aurora'
+Plug 'altercation/vim-colors-solarized'
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+Plug 'itchyny/vim-gitbranch'
 
 
 " Plugin options
@@ -95,15 +105,19 @@ call plug#end()
 "let b:ale_linters = ['flake8', 'pylint']
 "closes if nerdtree is the only thing open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-let g:gruvbox_contrast_dark = "hard"
-colorscheme gruvbox 
+"let g:gruvbox_contrast_dark = "hard"
+"colorscheme gotham
+"colorscheme gruvbox 
+syntax enable
+colorscheme challenger_deep
+set background=dark
 "let g:seoul256_background = 235
 "colorscheme seoul256
 let g:minimap_highlight='Visual'
-let g:airline_theme='base16'
+let g:airline_theme='hybridline'
 let g:prettier#quickfix_enabled = 0
+let g:ale_set_highlights = 0
 let g:prettier#autoformat = 0
-let g:prettier#config#trailing_comma = 'none'
 "autocmd BufWritePre,TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 autocmd FileType javascript setlocal tabstop=2 softtabstop=2 sw=2 expandtab
 

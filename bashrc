@@ -56,11 +56,22 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# Add git branch if its present to PS1
+
+parse_git_branch() {
+ git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+ PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[01;31m\]$(parse_git_branch)\[\033[00m\]\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+ PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(parse_git_branch)\$ '
 fi
+
+# if [ "$color_prompt" = yes ]; then
+#     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+# else
+#     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+# fi
 unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
@@ -88,6 +99,8 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
+#alias ls='ls -GH'
+alias ls='ls -GH'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
@@ -140,3 +153,6 @@ alias eopen='encfs -o nonempty ~/Downloads/.hidden ~/Downloads/visible && cd ~/D
 alias eclose='cd ~/Downloads && fusermount -u visible && cd ~/'
 alias worldly='echo "hello,$1"'
 alias lock='xtrlock'
+fuzz() {
+    vim $(fzf -q $@)
+}
