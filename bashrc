@@ -55,9 +55,7 @@ if [ -n "$force_color_prompt" ]; then
 	color_prompt=
     fi
 fi
-
 # Add git branch if its present to PS1
-
 parse_git_branch() {
  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
@@ -66,6 +64,9 @@ if [ "$color_prompt" = yes ]; then
 else
  PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(parse_git_branch)\$ '
 fi
+
+#git autocomplete
+source ~/.bash/git-completion.bash
 
 # if [ "$color_prompt" = yes ]; then
 #     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
@@ -134,10 +135,12 @@ alias portlandcc='ssh xxxx.xxxx@syccuxas01.pcc.edu'
 alias rm='rm -i'
 alias cp='cp -i'
 set -o noclobber
+alias mv='mv -vn'
 alias sudo='sudo '
 alias swapThis='find . -type f -name "*.swp" -exec rm -f {} \;'
 alias Vuze='cd /media/myUsername/Dingo\ Starr/Downloads/Vuze\ Downloads'
-alias raspi='ssh pi@raspberrypi.local'
+alias raspi='ssh pi@raspberrypi.local -p 5678'
+alias farpi='ssh pi@73.190.96.234 -p 5678'
 alias pacman='sudo apt update && sudo apt upgrade -y ; sudo apt autoremove -y; beep ; sudo vim /etc/systemd/logind.conf'
 alias sqlite='sqlite3'
 alias esad='killall -9'
@@ -154,5 +157,19 @@ alias eclose='cd ~/Downloads && fusermount -u visible && cd ~/'
 alias worldly='echo "hello,$1"'
 alias lock='xtrlock'
 fuzz() {
-    vim $(fzf -q $@)
+    # vim $(fzf -q $@)
+    vim $(fzf)
 }
+alias abii='ssh -i ~/.ssh/vanrobo pi@192.168.42.1'
+alias farbii='ssh -i ~/.ssh/vanrobo pi@10.47.110.164'
+alias findIP='curl -4 https://icanhazip.com/'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+alias radSync='rsync -Privt build/ pi@192.168.42.1:react_management_frontend/build/'
+alias bradSync='rsync -Privt build/ pi@192.168.42.1:carrot-react/build/'
+alias cadSync='rsync -Privt build/ pi@10.47.110.164:carrot-react/build/'
+alias zradSync='rsync -Privt build/ pi@10.47.109.150:react_management_frontend/build/'
+alias gotoBar='vim /Users/eamon/jWork/abii/imgOfAbii/pi/react_management_frontend/src/components/TeacherDashboard/LearnerRow.js'
+#sudo netstat -lpn
