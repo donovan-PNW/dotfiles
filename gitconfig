@@ -1,0 +1,12 @@
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+    user = Eamon Donovan
+	email = ohmygodtheskyisfalling@gmail.com
+	name = Eamon Donovan
+[credential]
+	helper = --store
+
+[alias]
+    lg = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    fileHist = log -p --follow
