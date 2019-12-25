@@ -33,6 +33,7 @@ set conceallevel=0
 set backspace=indent,eol,start
 "fzf told me to include this one
 set rtp+=/usr/local/opt/fzf
+set clipboard=unnamed
 
 augroup AutoSaveFolds
   autocmd!
@@ -83,8 +84,8 @@ Plug 'severin-lemaignan/vim-minimap'
 " BAD Plug 'pangloss/vim-javascript'
 Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'jelera/vim-javascript-syntax'
-Plug 'mxw/vim-jsx'
-Plug 'sheerun/vim-polyglot'
+" Plug 'mxw/vim-jsx'
+" Plug 'sheerun/vim-polyglot'
 Plug 'simnalamburt/vim-mundo'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'jaredgorski/spacecamp'
@@ -102,7 +103,8 @@ Plug 'itchyny/vim-gitbranch'
 "Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 
 call plug#end()
-"let b:ale_linters = ['flake8', 'pylint']
+let g:ale_linters = { 'python': ['flake8'] }
+
 "closes if nerdtree is the only thing open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 "let g:gruvbox_contrast_dark = "hard"
