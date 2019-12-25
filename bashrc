@@ -130,6 +130,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+# ===============ALIASES=============== #
+
 # BASH filesystem
 alias rm='rm -i'
 alias cp='cp -i'
@@ -137,49 +144,46 @@ alias mv='mv -vn'
 set -o noclobber
 alias sudo='sudo '
 
-# De-annoyance aliases
-alias swapThis='find . -type f -name "*.swp" -exec rm -f {} \;'
+# De-annoyance and quick-rename aliases
+alias pip='pip3'
+alias python='python3'
 alias top='htop'
+alias sqlite='sqlite3'
+alias resource='vim ~/.bashrc && source ~/.bashrc'
+alias swapThis='find . -type f -name "*.swp" -exec rm -f {} \;'
+alias esad='killall -9'
+fuzz() {
+    vim $(fzf)
+}
 
 # Old linux aliases
 alias pacman='sudo apt update && sudo apt upgrade -y ; sudo apt autoremove -y; beep ; sudo vim /etc/systemd/logind.conf'
 alias Vuze='cd /media/myUsername/Dingo\ Starr/Downloads/Vuze\ Downloads'
 alias beep='paplay /usr/share/sounds/ubuntu/notifications/Positive.ogg'
+alias eopen='encfs -o nonempty ~/Downloads/.hidden ~/Downloads/visible && cd ~/Downloads/visible'
+alias eclose='cd ~/Downloads && fusermount -u visible && cd ~/'
+alias lock='xtrlock'
 
-# THINK I don't need?
-alias pip='pip3'
-alias python='python3'
-
-alias raspi='ssh pi@raspberrypi.local -p 5678'
-alias farpi='ssh pi@73.190.96.234 -p 5678'
-alias sqlite='sqlite3'
-alias esad='killall -9'
+# nifty tricks
 alias weather='curl wttr.in/portland?u'
 alias mycal='gcalcli calm ; sleep 5; gcalcli agenda'
 alias startup='curl wttr.in/portland?u; sleep 5; gcalcli calw now 4 ; sleep 5 ; gcalcli agenda'
-alias resource='vim ~/.bashrc && source ~/.bashrc'
-alias eopen='encfs -o nonempty ~/Downloads/.hidden ~/Downloads/visible && cd ~/Downloads/visible'
-alias eclose='cd ~/Downloads && fusermount -u visible && cd ~/'
 alias worldly='echo "hello,$1"'
-alias lock='xtrlock'
-fuzz() {
-    # vim $(fzf -q $@)
-    vim $(fzf)
-}
+alias macBeep='afplay /System/Library/Sounds/Sosumi.aiff'
+alias veena='say -v Veena Hi I am veena how is your day today?'
+
+# SSH/NETWORK stuff
+alias findIP='curl -4 https://icanhazip.com/'
+alias raspi='ssh pi@raspberrypi.local -p 5678'
+alias farpi='ssh pi@73.190.96.234 -p 5678'
 alias abii='ssh -i ~/.ssh/vanrobo pi@192.168.42.1'
 alias farbii='ssh -i ~/.ssh/vanrobo pi@192.168.1.11'
-alias findIP='curl -4 https://icanhazip.com/'
+alias amazon='ssh -i .ssh/Administrator-AWS-key-pair-Oregon.pem ubuntu@ec2-34-212-34-40.us-west-2.compute.amazonaws.com'
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Hacky Shortcuts that I should delete someday
 alias radSync='rsync -Privt build/ pi@192.168.42.1:react_management_frontend/build/'
 alias bradSync='rsync -Privt build/ pi@192.168.42.1:carrot-react/build/'
 alias cadSync='rsync -Privt build/ pi@10.47.110.1:carrot-react/build/'
 alias zradSync='rsync -Privt build/ pi@10.47.109.150:react_management_frontend/build/'
-alias gotoBar='vim /Users/eamon/jWork/abii/imgOfAbii/pi/react_management_frontend/src/components/TeacherDashboard/LearnerRow.js'
-#sudo netstat -lpn
 alias vansible='cd ~/jWork/vansible && vim process-marii.yml && ansible-playbook -i hosts process-marii.yml'
-alias amazon='ssh -i .ssh/Administrator-AWS-key-pair-Oregon.pem ubuntu@ec2-34-212-34-40.us-west-2.compute.amazonaws.com'
-alias macBeep='afplay /System/Library/Sounds/Sosumi.aiff'
-alias veena='say -v Veena Hi I am veena how is your day today?'
+alias gotoBar='vim /Users/eamon/jWork/abii/imgOfAbii/pi/react_management_frontend/src/components/TeacherDashboard/LearnerRow.js'
