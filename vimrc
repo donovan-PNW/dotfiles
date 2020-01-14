@@ -48,7 +48,11 @@ if has('nvim') || has('termguicolors')
 endif
 
 
-
+"mappings!!
+map <C-H> <C-w>h
+map <C-J> <C-w>j
+map <C-K> <C-w>k
+map <C-L> <C-w>l
 
 call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
@@ -122,8 +126,5 @@ let g:ale_set_highlights = 0
 let g:prettier#autoformat = 0
 "autocmd BufWritePre,TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 autocmd FileType javascript setlocal tabstop=2 softtabstop=2 sw=2 expandtab
-
-
-
-
-
+" autocmd FileType html,css setlocal tabstop=2 softtabstop=2 sw=2 expandtab
+au BufNewFile,BufRead *.html,*.css setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
