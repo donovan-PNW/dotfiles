@@ -31,9 +31,12 @@ set splitbelow
 set splitright
 set conceallevel=0
 set backspace=indent,eol,start
+set cursorline
 "fzf told me to include this one
 set rtp+=/usr/local/opt/fzf
 set clipboard=unnamed
+set ignorecase
+set smartcase
 
 augroup AutoSaveFolds
   autocmd!
@@ -49,10 +52,27 @@ endif
 
 
 "mappings!!
-map <C-H> <C-w>h
-map <C-J> <C-w>j
-map <C-K> <C-w>k
-map <C-L> <C-w>l
+noremap <C-H> <C-w>h
+noremap <C-J> <C-w>j
+noremap <C-K> <C-w>k
+noremap <C-L> <C-w>l
+noremap <S-l> gt
+noremap <S-h> gT
+nnoremap Q @q
+vnoremap Q :norm @q<cr>
+
+"LEADER MAPPINGS!!
+"FZF
+"NOTE: <bar> allows chain of commands 
+"map <leader><tab> :vs <CR> <bar> :FZF <CR>
+map <leader><tab> :FZF <CR>
+"Ripgrep
+"map <leader><space> :vs <CR> <bar> :Rg<CR>
+map <leader><space> :Rg <CR>
+"NERDtree
+map <leader>n :NERDTreeToggle<CR>
+map <leader>v :vs <CR> <bar> :FZF <CR>
+map <leader>s :split <CR> <bar> :FZF <CR>
 
 call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
@@ -98,6 +118,8 @@ Plug 'rafalbromirski/vim-aurora'
 Plug 'altercation/vim-colors-solarized'
 Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'itchyny/vim-gitbranch'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-rooter'
 
 
 " Plugin options
@@ -124,7 +146,16 @@ let g:airline_theme='hybridline'
 let g:prettier#quickfix_enabled = 0
 let g:ale_set_highlights = 0
 let g:prettier#autoformat = 0
+let NERDTreeQuitOnOpen=1
+" directories and all files (default)
+let g:rooter_targets = '/,*'
+let g:rooter_patterns = ['Rakefile', '.git/']
+let g:rooter_use_lcd = 1
+"let g:rooter_manual_only = 1
+command!      -bang -nargs=* FZF                        call fzf#vim#grep("fzf --column --line-number --no-heading --color=always --smart-case " . shellescape(<q-args>), 1, {"dir": FindRootDirectory()})
+command!      -bang -nargs=* Rg                        call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " . shellescape(<q-args>), 1, {"dir": FindRootDirectory()})
 "autocmd BufWritePre,TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 autocmd FileType javascript setlocal tabstop=2 softtabstop=2 sw=2 expandtab
 " autocmd FileType html,css setlocal tabstop=2 softtabstop=2 sw=2 expandtab
 au BufNewFile,BufRead *.html,*.css setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+set conceallevel=0

@@ -43,7 +43,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -73,7 +73,7 @@ source ~/.bash/git-completion.bash
 # else
 #     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 # fi
-unset color_prompt force_color_prompt
+# unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -102,8 +102,8 @@ fi
 # some more ls aliases
 #alias ls='ls -GH'
 alias ls='ls -GH'
-alias ll='ls -alF'
-alias la='ls -A'
+alias ll='ls -lFh'
+alias la='ls -AlFh'
 alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
@@ -135,6 +135,15 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
+#virtualenvwrapper
+# if [ -f ~/.local/bin/virtualenvwrapper.sh ] ; then
+#     export WORKON_HOME=~/.virtualenvs
+#     export PROJECT_HOME=$HOME/Devel
+#     export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+#     export VIRTUALENVWRAPPER_VIRTUALENV=~ /.local/bin/virtualenv
+#     source /usr/local/bin/virtualenvwrapper.sh
+# fi
+
 # ===============ALIASES=============== #
 
 # BASH filesystem
@@ -143,18 +152,25 @@ alias cp='cp -i'
 alias mv='mv -vn'
 set -o noclobber
 alias sudo='sudo '
+set -o vi # VIM KEYMAPPINGS!
 
 # De-annoyance and quick-rename aliases
 alias pip='pip3'
 alias python='python3'
 alias top='htop'
 alias sqlite='sqlite3'
-alias resource='vim ~/.bashrc && source ~/.bashrc'
+alias resource='vim ~/.bashrc && source ~/.bash_profile'
 alias swapThis='find . -type f -name "*.swp" -exec rm -f {} \;'
 alias esad='killall -9'
 fuzz() {
     vim $(fzf)
 }
+alias ..='cd ../'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+bind "$(bind -s | grep '^"\\C-r"' | sed 's/"/"\\C-x/' | sed 's/"$/\\C-m"/')"
+
 
 # Old linux aliases
 alias pacman='sudo apt update && sudo apt upgrade -y ; sudo apt autoremove -y; beep ; sudo vim /etc/systemd/logind.conf'
@@ -175,15 +191,27 @@ alias veena='say -v Veena Hi I am veena how is your day today?'
 # SSH/NETWORK stuff
 alias findIP='curl -4 https://icanhazip.com/'
 alias raspi='ssh pi@raspberrypi.local -p 5678'
-alias farpi='ssh pi@73.190.96.234 -p 5678'
+alias farpi='ssh pi@76.115.210.216 -p 5678'
 alias abii='ssh -i ~/.ssh/vanrobo pi@192.168.42.1'
-alias farbii='ssh -i ~/.ssh/vanrobo pi@192.168.1.11'
-alias amazon='ssh -i .ssh/Administrator-AWS-key-pair-Oregon.pem ubuntu@ec2-34-212-34-40.us-west-2.compute.amazonaws.com'
+alias farbii='ssh -i ~/.ssh/vanrobo pi@192.168.1.8'
+alias amazon='ssh -i .ssh/Administrator-AWS-key-pair-Oregon.pem Ubuntu@ec2-34-212-34-40.us-west-2.compute.amazonaws.com'
 
 # Hacky Shortcuts that I should delete someday
-alias radSync='rsync -Privt build/ pi@192.168.42.1:react_management_frontend/build/'
+# alias radSync='rsync -Privt build/ pi@192.168.42.1:react_management_frontend/build/'
 alias bradSync='rsync -Privt build/ pi@192.168.42.1:carrot-react/build/'
 alias cadSync='rsync -Privt build/ pi@10.47.110.1:carrot-react/build/'
 alias zradSync='rsync -Privt build/ pi@10.47.109.150:react_management_frontend/build/'
-alias vansible='cd ~/jWork/vansible && vim process-marii.yml && ansible-playbook -i hosts process-marii.yml'
+alias vansible='cd ~/jWork/vansible && vim process-marii.yml && ansible-playbook -i hosts process-marii.yml -vv'
 alias gotoBar='vim /Users/eamon/jWork/abii/imgOfAbii/pi/react_management_frontend/src/components/TeacherDashboard/LearnerRow.js'
+alias gotoWav='cd ~/jWork/abii/imgOfAbii/pi/comm_abii_development/hulk/LessonController/lesson_provider/templates/static/audio'
+alias gotoMove='cd ~/jWork/abii/imgOfAbii/pi/comm_abii_development/hulk'
+alias gotoLessonHandler='vim /Users/eamon/jWork/abii/imgOfAbii/pi/comm_abii_development/hulk/LessonController/lesson_provider/comms/views/lessonhandler.py'
+alias facebookToggle='sudo vim /etc/hosts && dscacheutil -flushcache'
+alias gotoNginx='cd /usr/local/etc/nginx/'
+alias gotoAbii='cd ~/jWork/abii/imgOfAbii/pi/comm_abii_development/hulk/'
+alias procesSSH='ssh -i ~/.ssh/process_backend_deploy.pem ubuntu@ec2-3-88-145-183.compute-1.amazonaws.com'
+alias sleepless="pmset -g assertions | egrep '(PreventUserIdleSystemSleep|PreventUserIdleDisplaySleep)'"
+alias activate='source bin/activate'
+alias pyserve='python3 -m http.server 9999'
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+# istats
