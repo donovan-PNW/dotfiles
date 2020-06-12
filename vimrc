@@ -73,6 +73,7 @@ map <leader><space> :Rg <CR>
 map <leader>n :NERDTreeToggle<CR>
 map <leader>v :vs <CR> <bar> :FZF <CR>
 map <leader>s :split <CR> <bar> :FZF <CR>
+map <leader>t :tabnew <CR> <bar> :FZF <CR>
 
 call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
@@ -143,19 +144,31 @@ set background=dark
 "colorscheme seoul256
 let g:minimap_highlight='Visual'
 let g:airline_theme='hybridline'
+let g:airline_detect_modified=1
 let g:prettier#quickfix_enabled = 0
 let g:ale_set_highlights = 0
 let g:prettier#autoformat = 0
 let NERDTreeQuitOnOpen=1
-" directories and all files (default)
+" maybe delete this too? rooter was meant to anchor working directory (see
+" below) but a simple :cd .. might be all I needed
 let g:rooter_targets = '/,*'
 let g:rooter_patterns = ['Rakefile', '.git/']
 let g:rooter_use_lcd = 1
 "let g:rooter_manual_only = 1
-command!      -bang -nargs=* FZF                        call fzf#vim#grep("fzf --column --line-number --no-heading --color=always --smart-case " . shellescape(<q-args>), 1, {"dir": FindRootDirectory()})
-command!      -bang -nargs=* Rg                        call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " . shellescape(<q-args>), 1, {"dir": FindRootDirectory()})
+"maybe don't need these? They were to try to anchor the working directory for
+"fzf/vim but I don't remember if they fixed anything. 
+command! -bang -nargs=* FZF call fzf#vim#grep("fzf --column --line-number --no-heading --color=always --smart-case " . shellescape(<q-args>), 1, {"dir": FindRootDirectory()})
+command! -bang -nargs=* Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case " . shellescape(<q-args>), 1, {"dir": FindRootDirectory()})
 "autocmd BufWritePre,TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 autocmd FileType javascript setlocal tabstop=2 softtabstop=2 sw=2 expandtab
 " autocmd FileType html,css setlocal tabstop=2 softtabstop=2 sw=2 expandtab
 au BufNewFile,BufRead *.html,*.css setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 set conceallevel=0
+"makes filename visible instead of path at bottom of buffer
+function! Init()
+  call airline#parts#define_function('cwd', 'getcwd')
+  call airline#parts#define_minwidth('cwd', 80) "adjust as necessary, it'll check against windwidth()
+  "let g:airline_section_b = airline#section#create(['Buf #[%n] ', 'cwd'])
+  let g:airline_section_b = airline#section#create([])
+endfunction
+autocmd VimEnter * call Init()

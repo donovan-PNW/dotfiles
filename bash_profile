@@ -21,9 +21,8 @@ export LSCOLORS=Exfxcxdxbxegedabagacad
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/test_developers
 export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-# FZF stuff
 # export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-source /usr/local/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper_lazy.sh
 #####
 source ~/.bashrc
 

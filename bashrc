@@ -130,11 +130,13 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# NVM makes bash take forever to load so I got rid of it
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
+# In .bash_profile
 #virtualenvwrapper
 # if [ -f ~/.local/bin/virtualenvwrapper.sh ] ; then
 #     export WORKON_HOME=~/.virtualenvs
@@ -165,6 +167,10 @@ alias esad='killall -9'
 fuzz() {
     vim $(fzf)
 }
+worldly() {
+    echo 'hello,' $@'! good to see you!'
+}
+
 alias ..='cd ../'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -184,34 +190,45 @@ alias lock='xtrlock'
 alias weather='curl wttr.in/portland?u'
 alias mycal='gcalcli calm ; sleep 5; gcalcli agenda'
 alias startup='curl wttr.in/portland?u; sleep 5; gcalcli calw now 4 ; sleep 5 ; gcalcli agenda'
-alias worldly='echo "hello,$1"'
 alias macBeep='afplay /System/Library/Sounds/Sosumi.aiff'
 alias veena='say -v Veena Hi I am veena how is your day today?'
+# rg -p --color always console.log | less -R
+lerg() {
+    rg -p --color always $@ | less -R
+}
+
 
 # SSH/NETWORK stuff
 alias findIP='curl -4 https://icanhazip.com/'
 alias raspi='ssh pi@raspberrypi.local -p 5678'
 alias farpi='ssh pi@76.115.210.216 -p 5678'
 alias abii='ssh -i ~/.ssh/vanrobo pi@192.168.42.1'
-alias farbii='ssh -i ~/.ssh/vanrobo pi@192.168.1.8'
-alias amazon='ssh -i .ssh/Administrator-AWS-key-pair-Oregon.pem Ubuntu@ec2-34-212-34-40.us-west-2.compute.amazonaws.com'
+alias farbii='ssh -i ~/.ssh/vanrobo pi@192.168.1.2'
+# alias amazon='ssh -i .ssh/Administrator-AWS-key-pair-Oregon.pem Ubuntu@ec2-34-212-34-40.us-west-2.compute.amazonaws.com'
+alias amazon='ssh -i ~/.ssh/Administrator-AWS-key-pair-Oregon.pem ubuntu@ec2-34-221-223-23.us-west-2.compute.amazonaws.com'
+# alias warp='sudo arp-scan 192.168.1.0/24'
+alias warp='sudo arp-scan -l' 
 
 # Hacky Shortcuts that I should delete someday
-# alias radSync='rsync -Privt build/ pi@192.168.42.1:react_management_frontend/build/'
-alias bradSync='rsync -Privt build/ pi@192.168.42.1:carrot-react/build/'
-alias cadSync='rsync -Privt build/ pi@10.47.110.1:carrot-react/build/'
-alias zradSync='rsync -Privt build/ pi@10.47.109.150:react_management_frontend/build/'
+alias radSync='rsync -Privt build/ pi@192.168.42.1:react_management_frontend/build/'
+alias bradSync='rsync -Privt ./build/ pi@192.168.7.124:marii_frontend/build/'
+# alias bradSync='rsync -Privt ./build/ pi@192.168.42.1:marii_frontend/build/'
+alias cadSync='rsync -Privt ./db.sqlite3 pi@192.168.1.4:marii_backend/db.sqlite3'
+# alias zradSync='rsync -Privt build/ pi@10.47.109.150:react_management_frontend/build/'
 alias vansible='cd ~/jWork/vansible && vim process-marii.yml && ansible-playbook -i hosts process-marii.yml -vv'
 alias gotoBar='vim /Users/eamon/jWork/abii/imgOfAbii/pi/react_management_frontend/src/components/TeacherDashboard/LearnerRow.js'
 alias gotoWav='cd ~/jWork/abii/imgOfAbii/pi/comm_abii_development/hulk/LessonController/lesson_provider/templates/static/audio'
-alias gotoMove='cd ~/jWork/abii/imgOfAbii/pi/comm_abii_development/hulk'
+alias GotoHulk='cd ~/jWork/abii/imgOfAbii/pi/comm_abii_development/hulk'
 alias gotoLessonHandler='vim /Users/eamon/jWork/abii/imgOfAbii/pi/comm_abii_development/hulk/LessonController/lesson_provider/comms/views/lessonhandler.py'
 alias facebookToggle='sudo vim /etc/hosts && dscacheutil -flushcache'
 alias gotoNginx='cd /usr/local/etc/nginx/'
 alias gotoAbii='cd ~/jWork/abii/imgOfAbii/pi/comm_abii_development/hulk/'
 alias procesSSH='ssh -i ~/.ssh/process_backend_deploy.pem ubuntu@ec2-3-88-145-183.compute-1.amazonaws.com'
 alias sleepless="pmset -g assertions | egrep '(PreventUserIdleSystemSleep|PreventUserIdleDisplaySleep)'"
-alias activate='source bin/activate'
+# alias activate='source bin/activate'
 alias pyserve='python3 -m http.server 9999'
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 # istats
+alias copyrec='find . -iname *.mp4 -exec cp {} ./movs \;'
+alias bring='youtube-dl --external-downloader axel --external-downloader-args "-n 10 -a"'
+alias rorobo='git push vanrobo robot_port:master'
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
