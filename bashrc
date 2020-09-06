@@ -167,6 +167,7 @@ alias esad='killall -9'
 fuzz() {
     vim $(fzf)
 }
+
 worldly() {
     echo 'hello,' $@'! good to see you!'
 }
@@ -193,8 +194,8 @@ alias startup='curl wttr.in/portland?u; sleep 5; gcalcli calw now 4 ; sleep 5 ; 
 alias macBeep='afplay /System/Library/Sounds/Sosumi.aiff'
 alias veena='say -v Veena Hi I am veena how is your day today?'
 # rg -p --color always console.log | less -R
-lerg() {
-    rg -p --color always $@ | less -R
+zap() {
+    rg -p --color always $@ | less -RX
 }
 
 
@@ -203,7 +204,7 @@ alias findIP='curl -4 https://icanhazip.com/'
 alias raspi='ssh pi@raspberrypi.local -p 5678'
 alias farpi='ssh pi@76.115.210.216 -p 5678'
 alias abii='ssh -i ~/.ssh/vanrobo pi@192.168.42.1'
-alias farbii='ssh -i ~/.ssh/vanrobo pi@192.168.1.2'
+alias farbii='ssh -i ~/.ssh/vanrobo pi@192.168.1.10'
 # alias amazon='ssh -i .ssh/Administrator-AWS-key-pair-Oregon.pem Ubuntu@ec2-34-212-34-40.us-west-2.compute.amazonaws.com'
 alias amazon='ssh -i ~/.ssh/Administrator-AWS-key-pair-Oregon.pem ubuntu@ec2-34-221-223-23.us-west-2.compute.amazonaws.com'
 # alias warp='sudo arp-scan 192.168.1.0/24'
@@ -231,4 +232,14 @@ alias pyserve='python3 -m http.server 9999'
 alias copyrec='find . -iname *.mp4 -exec cp {} ./movs \;'
 alias bring='youtube-dl --external-downloader axel --external-downloader-args "-n 10 -a"'
 alias rorobo='git push vanrobo robot_port:master'
+alias totalLines='find . -type f -exec cat {} + | wc -w'
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+alias toTheCloud='ssh -i ~/.ssh/id_rsa.pub -p 80 abii-update.abiis-world.com'
+alias tempGetIt='scp -i ~/.ssh/id_rsa.pub -P 80 abii-update.abiis-world.com:/home/azureuser/ansible/abii_sync.yml ~'
+alias rat='find . -type f -exec bat {} \;'
+alias virtual='ssh -p 1111 eamon@localhost'
+alias squareCI='circleci local execute --job deploy'
+alias getMd5='find . -type f ! -path "./.git/*" ! -name "checksums.txt" -exec md5 -r "{}" + | sort'
+# alias oldest='ls -haltr'
+alias unchangedFiles='git diff --name-only --stat @{2.weeks.ago} >> changed.txt && git ls-files >> all.txt && comm -23 all.txt changed.txt >> unchanged.txt'
+# sudo arp-scan -l | grep Shenzhen | awk '{print }'
