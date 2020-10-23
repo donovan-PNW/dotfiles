@@ -198,7 +198,9 @@ zap() {
     rg -p --color always $@ | less -RX
 }
 
-
+bush() {
+    tree -C $@ | less -RX
+}
 # SSH/NETWORK stuff
 alias findIP='curl -4 https://icanhazip.com/'
 alias raspi='ssh pi@raspberrypi.local -p 5678'

@@ -58,8 +58,14 @@ noremap <C-K> <C-w>k
 noremap <C-L> <C-w>l
 noremap <S-l> gt
 noremap <S-h> gT
+noremap <S-Left> :vertical resize +3 <CR>
+noremap <S-Right> :vertical resize -3 <CR>
+noremap <S-Up> :resize +3 <CR>
+noremap <S-Down> :resize -3 <CR>
 nnoremap Q @q
 vnoremap Q :norm @q<cr>
+nnoremap j gj
+nnoremap k gk
 
 "LEADER MAPPINGS!!
 "FZF
@@ -71,9 +77,14 @@ map <leader><tab> :FZF <CR>
 map <leader><space> :Rg <CR>
 "NERDtree
 map <leader>n :NERDTreeToggle<CR>
-map <leader>v :vs <CR> <bar> :FZF <CR>
-map <leader>s :split <CR> <bar> :FZF <CR>
-map <leader>t :tabnew <CR> <bar> :FZF <CR>
+"leaving because the <bar> trick is cool
+"map <leader>v :vs <CR> <bar> :FZF <CR>
+"map <leader>s :split <CR> <bar> :FZF <CR>
+"map <leader>t :tabnew <CR> <bar> :FZF <CR>
+map <leader>v :vs <CR>
+map <leader>s :split <CR>
+map <leader>t :tabnew <CR>
+map <leader>w :Goyo <CR> <bar> :Limelight!! <CR> <bar> :set linebreak <CR> <bar> :set spell! <CR>
 
 call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
@@ -121,6 +132,7 @@ Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-rooter'
+Plug 'junegunn/limelight.vim'
 
 
 " Plugin options
