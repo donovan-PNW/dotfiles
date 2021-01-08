@@ -164,8 +164,13 @@ alias sqlite='sqlite3'
 alias resource='vim ~/.bashrc && source ~/.bash_profile'
 alias swapThis='find . -type f -name "*.swp" -exec rm -f {} \;'
 alias esad='killall -9'
+
 fuzz() {
-    vim $(fzf)
+    FILE=$(fzf)
+    if [[ $FILE ]]; then
+        echo $FILE
+        vim $FILE
+    fi
 }
 
 worldly() {
