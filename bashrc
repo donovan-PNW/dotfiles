@@ -173,10 +173,16 @@ fuzz() {
     fi
 }
 
+lint() {
+    if [[ $FILE ]]; then
+        echo $FILE
+        vim $FILE
+    fi
+}
+
 worldly() {
     echo 'hello,' $@'! good to see you!'
 }
-
 alias ..='cd ../'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -247,6 +253,8 @@ alias rat='find . -type f -exec bat {} \;'
 alias virtual='ssh -p 1111 eamon@localhost'
 alias squareCI='circleci local execute --job deploy'
 alias getMd5='find . -type f ! -path "./.git/*" ! -name "checksums.txt" -exec md5 -r "{}" + | sort'
-# alias oldest='ls -haltr'
+alias oldest='ls -haltr'
 alias unchangedFiles='git diff --name-only --stat @{2.weeks.ago} >> changed.txt && git ls-files >> all.txt && comm -23 all.txt changed.txt >> unchanged.txt'
+alias vboxUp='nohup VirtualBoxVM --startvm MARii\ Clone &'
 # sudo arp-scan -l | grep Shenzhen | awk '{print }'
+# [[ $- = *i* ]] && bind TAB:menu-complete

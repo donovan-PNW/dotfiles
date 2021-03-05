@@ -5,9 +5,34 @@
 	email = ohmygodtheskyisfalling@gmail.com
 	name = Eamon Donovan
 [credential]
-	helper = --store
+	helper = store
 
 [alias]
     lg = log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-    lgm = log --first-parent master --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    # lgm = log --first-parent master --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lgm = log --first-parent master --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=iso
     fileHist = log -p --follow
+	co = checkout
+[color]
+	ui = true
+# [color]
+#     branch = auto
+#     diff = auto
+#     status = auto
+# [color "branch"]
+# 	current = yellow reverse
+# 	local = yellow
+# 	remote = green
+# [color "diff"]
+# 	meta = yellow bold
+# 	frag = magenta bold
+# 	old = red bold
+# 	new = green bold
+# [color "status"]
+# 	added = yellow
+# 	changed = green
+# 	untracked = cyan
+# [apply]
+# 	whitespace = warn
+[pull]
+	ff = only
