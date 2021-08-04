@@ -131,9 +131,9 @@ if ! shopt -oq posix; then
 fi
 
 # NVM makes bash take forever to load so I got rid of it
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
 # In .bash_profile
@@ -206,7 +206,7 @@ alias macBeep='afplay /System/Library/Sounds/Sosumi.aiff'
 alias veena='say -v Veena Hi I am veena how is your day today?'
 # rg -p --color always console.log | less -R
 zap() {
-    rg -p --color always $@ | less -RX
+    rg -p --color always "$@" | less -RX
 }
 
 bush() {
@@ -256,5 +256,9 @@ alias getMd5='find . -type f ! -path "./.git/*" ! -name "checksums.txt" -exec md
 alias oldest='ls -haltr'
 alias unchangedFiles='git diff --name-only --stat @{2.weeks.ago} >> changed.txt && git ls-files >> all.txt && comm -23 all.txt changed.txt >> unchanged.txt'
 alias vboxUp='nohup VirtualBoxVM --startvm MARii\ Clone &'
+alias nike='npm run build && rsync -avzhi /Users/eamon/jWork/abii/imgOfAbii/pi/react_management_frontend/build/ marii:~/react_management_frontend/build/'
+alias sendit='rsync -avzhi /Users/eamon/jWork/abii/imgOfAbii/pi/cloud_sync_siam/wifi_controller/ abii42:~/cloud_sync_siam/wifi_controller/ && ssh -t abii42 "~/bork.sh"'
+alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
+
 # sudo arp-scan -l | grep Shenzhen | awk '{print }'
 # [[ $- = *i* ]] && bind TAB:menu-complete

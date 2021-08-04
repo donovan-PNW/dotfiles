@@ -37,6 +37,7 @@ set rtp+=/usr/local/opt/fzf
 set clipboard=unnamed
 set ignorecase
 set smartcase
+"set nocompatible
 
 augroup AutoSaveFolds
   autocmd!
@@ -84,7 +85,14 @@ map <leader>n :NERDTreeToggle<CR>
 map <leader>v :vs <CR>
 map <leader>s :split <CR>
 map <leader>t :tabnew <CR>
+map <leader>z :MundoToggle <CR>
+map <leader>c :TComment <CR>
 map <leader>w :Goyo <CR> <bar> :Limelight!! <CR> <bar> :set linebreak <CR> <bar> :set spell! <CR>
+try
+    nmap <silent> [c :call CocAction('diagnosticNext')<cr>
+    nmap <silent> ]c :call CocAction('diagnosticPrevious')<cr>
+    nmap <leader>l :call CocAction('diagnosticToggle')<cr>
+endtry
 
 call plug#begin('~/.vim/plugged')
 " Make sure you use single quotes
@@ -108,7 +116,10 @@ Plug 'yggdroot/indentline'
 "Plug 'junegunn/fzf'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'ajh17/VimCompletesMe'
+"Plug 'ajh17/VimCompletesMe'
+"Plug 'valloric/youcompleteme'
+Plug 'neoclide/coc.nvim'
+
 Plug 'mbbill/undotree'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'w0rp/ale'
@@ -118,10 +129,10 @@ Plug 'tpope/vim-commentary'
 Plug 'nanotech/jellybeans.vim'
 Plug 'severin-lemaignan/vim-minimap'
 " BAD Plug 'pangloss/vim-javascript'
-Plug 'prettier/vim-prettier', { 'do': 'npm install' }
-Plug 'jelera/vim-javascript-syntax'
+" Plug 'prettier/vim-prettier', { 'do': 'npm install' }
+" Plug 'jelera/vim-javascript-syntax'
 " Plug 'mxw/vim-jsx'
-" Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 Plug 'simnalamburt/vim-mundo'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'jaredgorski/spacecamp'
@@ -157,15 +168,16 @@ set background=dark
 let g:minimap_highlight='Visual'
 let g:airline_theme='hybridline'
 let g:airline_detect_modified=1
-let g:prettier#quickfix_enabled = 0
+"let g:prettier#quickfix_enabled = 0
 let g:ale_set_highlights = 0
-let g:prettier#autoformat = 0
+"let g:prettier#autoformat = 0
 let NERDTreeQuitOnOpen=1
 " maybe delete this too? rooter was meant to anchor working directory (see
 " below) but a simple :cd .. might be all I needed
 let g:rooter_targets = '/,*'
 let g:rooter_patterns = ['Rakefile', '.git/']
-let g:rooter_use_lcd = 1
+"let g:rooter_use_lcd = 1
+let g:rooter_cd_cmd="lcd"
 "let g:rooter_manual_only = 1
 "maybe don't need these? They were to try to anchor the working directory for
 "fzf/vim but I don't remember if they fixed anything. 
@@ -184,3 +196,7 @@ function! Init()
   let g:airline_section_b = airline#section#create([])
 endfunction
 autocmd VimEnter * call Init()
+"let g:indentLine_setConceal = 0
+"mundo: Enable persistent undo so that undo history persists across vim sessions
+set undofile
+set undodir=~/.vim/undo

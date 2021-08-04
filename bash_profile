@@ -7,6 +7,7 @@
 # eval $(register-python-argcomplete ansible-playbook)
 # eval $(register-python-argcomplete ansible-pull)
 # eval $(register-python-argcomplete ansible-vault)
+export BASH_SILENCE_DEPRECATION_WARNING=1
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
 export PYTHONPATH=/usr/bin/python
 export PYTHONDONTWRITEBYTECODE=1
@@ -22,9 +23,16 @@ export LSCOLORS=Exfxcxdxbxegedabagacad
 # export PROJECT_HOME=$HOME/test_developers
 # export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 # export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-export VIRTUALENVWRAPPER_PYTHON=$(which python3)
+# export VIRTUALENVWRAPPER_PYTHON=$(which python3)
+
+# trying to set up a new environment with a different python version?
+# https://stackoverflow.com/questions/53372272/python-venv-virual-environment-uses-wrong-version-of-python/53372559#53372559
+# tldr: pyenv global 3.6.0 (or whatever), pip3 install virtualenvwrapper, mkvirtualenv --python=3.6.0 wifi
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 source /usr/local/bin/virtualenvwrapper_lazy.sh
-#####
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
 
 
 
