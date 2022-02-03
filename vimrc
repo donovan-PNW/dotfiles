@@ -16,7 +16,7 @@ set wildmode=longest,list,full
 set wildmenu
 set hlsearch
 set ttyfast
-set bg=dark
+"set bg=dark
 set incsearch
 set history=1000
 set undolevels=1000
@@ -200,3 +200,16 @@ autocmd VimEnter * call Init()
 "mundo: Enable persistent undo so that undo history persists across vim sessions
 set undofile
 set undodir=~/.vim/undo
+"~~~~~~~~~~~~~~~~~~~~~COLORS BROKE AFTER BREW DISASTER
+"delete this block if system restore works. Othwerise we're stuck with weird stuff
+set t_Co=256
+colorscheme challenger_deep
+set background=dark
+"protip: cyan refers to color specified in iterm -> settings -> profiles -> (default) -> ANSI colors (on right) -> cyan.
+"For some reason it is specifically looking at ANSI 'bright' column
+highlight Normal ctermbg=cyan
+highlight Visual ctermbg=magenta
+highlight Search ctermbg=magenta
+"~~~~~~~~~~~~~~~~~~~~~
+" automatically ctrl-w: equalize height/width when screen size changes
+:autocmd VimResized * wincmd =

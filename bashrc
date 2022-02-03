@@ -135,6 +135,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# enable gpg's tui
+GPG_TTY=$(tty)
+export GPG_TTY
 
 # In .bash_profile
 #virtualenvwrapper
@@ -212,6 +215,41 @@ zap() {
 bush() {
     tree -C $@ | less -RX
 }
+
+grip() {
+    # cut -d':' -f 1
+    # Integration with ripgrep
+    RG_PREFIX="rg --column --line-number --no-heading --color=always --smart-case "
+    INITIAL_QUERY="$@"
+    FZF_DEFAULT_COMMAND="$RG_PREFIX '$INITIAL_QUERY'" \
+        fzf --bind "change:reload:$RG_PREFIX {q} || true" \
+        --ansi --disabled --query "$INITIAL_QUERY"
+}
+
+zip() {
+    FILE=$(grip)
+    vfname=$(echo $FILE | cut -d':' -f 1)
+    vfline=$(echo $FILE | cut -d':' -f 2)
+    FILE=${vfname} # for lint()
+    # vimcmd="vim ${vfname} +${vfline}"
+    # echo $vimcmd
+    # exec $vimcmd
+    vim $vfname +$vfline
+}
+
+stripSound() {
+    input_file="$1"
+    output_file="$2"
+    ffmpeg -i "$input_file" -c copy -an $output_file
+}
+
+gosh() {
+    false
+    while [ $? -ne 0 ]; do
+        ssh "$@" || (sleep 1;false)
+    done
+}
+
 # SSH/NETWORK stuff
 alias findIP='curl -4 https://icanhazip.com/'
 alias raspi='ssh pi@raspberrypi.local -p 5678'
@@ -256,9 +294,12 @@ alias getMd5='find . -type f ! -path "./.git/*" ! -name "checksums.txt" -exec md
 alias oldest='ls -haltr'
 alias unchangedFiles='git diff --name-only --stat @{2.weeks.ago} >> changed.txt && git ls-files >> all.txt && comm -23 all.txt changed.txt >> unchanged.txt'
 alias vboxUp='nohup VirtualBoxVM --startvm MARii\ Clone &'
-alias nike='npm run build && rsync -avzhi /Users/eamon/jWork/abii/imgOfAbii/pi/react_management_frontend/build/ marii:~/react_management_frontend/build/'
-alias sendit='rsync -avzhi /Users/eamon/jWork/abii/imgOfAbii/pi/cloud_sync_siam/wifi_controller/ abii42:~/cloud_sync_siam/wifi_controller/ && ssh -t abii42 "~/bork.sh"'
+alias nike='npm run build && rsync -avzhi /Users/eamon/jWork/abii/imgOfAbii/pi/react_management_frontend/build/ abii:~/react_management_frontend/build/'
+alias sendit='rsync -avzhi /Users/eamon/jWork/abii/imgOfAbii/pi/cloud_sync_siam/wifi_controller/ abii:~/cloud_sync_siam/wifi_controller/; ssh -t abii "~/bork.sh"'
+alias sendit42='rsync -avzhi /Users/eamon/jWork/abii/imgOfAbii/pi/cloud_sync_siam/wifi_controller/ abii42:~/cloud_sync_siam/wifi_controller/; ssh -t abii42 "~/bork.sh"'
 alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
+alias pushups="rsync -avzhi --exclude '.git' /Users/eamon/jWork/abii/imgOfAbii/pi/update_procedure/ abii:~/update_procedure/"
+alias fzf="find . | fzf" # include hidden/dotfiles
 
 # sudo arp-scan -l | grep Shenzhen | awk '{print }'
 # [[ $- = *i* ]] && bind TAB:menu-complete

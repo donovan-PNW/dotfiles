@@ -19,19 +19,22 @@ export GREP_OPTIONS='--color=auto'
 export CLICOLOR=1
 export LSCOLORS=Exfxcxdxbxegedabagacad
 #####
-# export WORKON_HOME=$HOME/.virtualenvs
-# export PROJECT_HOME=$HOME/test_developers
-# export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-# export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-# export VIRTUALENVWRAPPER_PYTHON=$(which python3)
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/test_developers
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+export VIRTUALENVWRAPPER_PYTHON=$(which python3)
 
 # trying to set up a new environment with a different python version?
 # https://stackoverflow.com/questions/53372272/python-venv-virual-environment-uses-wrong-version-of-python/53372559#53372559
 # tldr: pyenv global 3.6.0 (or whatever), pip3 install virtualenvwrapper, mkvirtualenv --python=3.6.0 wifi
+# NOTE! 3.6 MUST BE SET IN GLOBAL. You can set global back to system and local to 3.6 after running mkvirtualenv
 export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
 source /usr/local/bin/virtualenvwrapper_lazy.sh
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+export TERM=xterm-256color
+# export HOMEBREW_NO_AUTO_UPDATE=1
 eval "$(pyenv init --path)"
 
 
@@ -40,5 +43,7 @@ test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shel
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
+
+# export HOMEBREW_NO_AUTO_UPDATE=1
 source ~/.bashrc
 # export PS1="\u@\h \W \[\$txtcyn\]\$git_branch\[\$txtred\]\$git_dirty\[\$txtrst\]\$ "
