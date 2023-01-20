@@ -45,5 +45,8 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 # export HOMEBREW_NO_AUTO_UPDATE=1
-source ~/.bashrc
 # export PS1="\u@\h \W \[\$txtcyn\]\$git_branch\[\$txtred\]\$git_dirty\[\$txtrst\]\$ "
+# gonna regret this later, I'm sure
+export PATH=/usr/local/Cellar/postgresql@13/13.7/bin/:$PATH
+eval "$(thefuck --alias)"
+source ~/.bashrc

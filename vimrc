@@ -67,6 +67,7 @@ nnoremap Q @q
 vnoremap Q :norm @q<cr>
 nnoremap j gj
 nnoremap k gk
+cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 "LEADER MAPPINGS!!
 "FZF
@@ -212,4 +213,9 @@ highlight Visual ctermbg=magenta
 highlight Search ctermbg=magenta
 "~~~~~~~~~~~~~~~~~~~~~
 " automatically ctrl-w: equalize height/width when screen size changes
-:autocmd VimResized * wincmd =
+autocmd VimResized * wincmd =
+"~~~~~~~~~~~~~~~~~~~~~
+" hightlight trailing whitespace
+" highlight ExtraWhitespace ctermbg=red
+" highlight ExtraWhitespace ctermbg=red guibg=red
+" match ExtraWhitespace /\s\+$/

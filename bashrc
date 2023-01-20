@@ -226,7 +226,7 @@ grip() {
         --ansi --disabled --query "$INITIAL_QUERY"
 }
 
-zip() {
+zoop() {
     FILE=$(grip)
     vfname=$(echo $FILE | cut -d':' -f 1)
     vfline=$(echo $FILE | cut -d':' -f 2)
@@ -234,7 +234,9 @@ zip() {
     # vimcmd="vim ${vfname} +${vfline}"
     # echo $vimcmd
     # exec $vimcmd
-    vim $vfname +$vfline
+    if [[ $vfname ]]; then
+        vim $vfname +$vfline
+    fi
 }
 
 stripSound() {
@@ -247,6 +249,14 @@ gosh() {
     false
     while [ $? -ne 0 ]; do
         ssh "$@" || (sleep 1;false)
+    done
+}
+
+portScan() {
+    rm -rf ports.txt
+    for i in {1..65535}
+    do
+        nc -G 5 -v -z portquiz.net $i 2>&1 >> /dev/null
     done
 }
 
@@ -300,6 +310,10 @@ alias sendit42='rsync -avzhi /Users/eamon/jWork/abii/imgOfAbii/pi/cloud_sync_sia
 alias vlc='/Applications/VLC.app/Contents/MacOS/VLC'
 alias pushups="rsync -avzhi --exclude '.git' /Users/eamon/jWork/abii/imgOfAbii/pi/update_procedure/ abii:~/update_procedure/"
 alias fzf="find . | fzf" # include hidden/dotfiles
+alias convertHEIC='magick mogrify -monitor -format jpg *.HEIC'
+alias relocate='sudo /usr/libexec/locate.updatedb'
+alias seedcloud='cd ~/jWork/abii/cloud/comm_management_backend && source .env && workon 3.8_comm_mgmt'
+# alias cd="pushd > /dev/null"
 
 # sudo arp-scan -l | grep Shenzhen | awk '{print }'
 # [[ $- = *i* ]] && bind TAB:menu-complete
